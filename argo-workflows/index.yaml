@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  argo-workflows:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Added option to add service accounts to RoleBindings
+      artifacthub.io/signKey: |
+        fingerprint: 2B8F22F57260EFA67BE1C5824B11F800CD9D2252
+        url: https://argoproj.github.io/argo-helm/pgp_keys.asc
+    apiVersion: v2
+    appVersion: v3.5.6
+    created: "2024-05-14T11:27:04.617953+02:00"
+    description: A Helm chart for Argo Workflows
+    digest: b4a440f549b0576bc0712d963504a59b8c921985e8f5f23c48b50c0b1a5c2a0a
+    home: https://github.com/argoproj/argo-helm
+    icon: https://argo-workflows.readthedocs.io/en/stable/assets/logo.png
+    maintainers:
+    - name: argoproj
+      url: https://argoproj.github.io/
+    name: argo-workflows
+    sources:
+    - https://github.com/argoproj/argo-workflows
+    type: application
+    urls:
+    - https://pasettifabio.github.io/recipes/argo-workflows-0.41.4.tgz
+    version: 0.41.4
+generated: "2024-05-14T11:27:04.615282+02:00"

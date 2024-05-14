@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "$ref": "#/definitions/argo-workflow",
+    "$ref": "#/definitions/argo-workflows",
     "definitions": {
-        "argo-workflow": {
+        "argo-workflows": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -94,7 +94,7 @@
                 "useStaticCredentials",
                 "workflow"
             ],
-            "title": "argo-workflow"
+            "title": "argo-workflows"
         },
         "APIVersionOverrides": {
             "type": "object",

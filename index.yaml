@@ -14,7 +14,7 @@ entries:
         url: https://argoproj.github.io/argo-helm/pgp_keys.asc
     apiVersion: v2
     appVersion: v2.11.0
-    created: "2024-05-14T11:36:12.567621+02:00"
+    created: "2024-05-14T11:40:49.341145+02:00"
     dependencies:
     - condition: redis-ha.enabled
       name: redis-ha
@@ -38,7 +38,7 @@ entries:
     - https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
     - https://github.com/argoproj/argo-cd
     urls:
-    - https://pasettifabio.github.io/recipes/main/argo-cd/argo-cd-6.9.1.tgz
+    - https://pasettifabio.github.io/recipes/argo-cd/argo-cd-6.9.1.tgz
     version: 6.9.1
   argo-workflows:
   - annotations:
@@ -50,7 +50,7 @@ entries:
         url: https://argoproj.github.io/argo-helm/pgp_keys.asc
     apiVersion: v2
     appVersion: v3.5.6
-    created: "2024-05-14T11:36:12.569466+02:00"
+    created: "2024-05-14T11:40:49.342992+02:00"
     description: A Helm chart for Argo Workflows
     digest: b4a440f549b0576bc0712d963504a59b8c921985e8f5f23c48b50c0b1a5c2a0a
     home: https://github.com/argoproj/argo-helm
@@ -63,6 +63,6 @@ entries:
     - https://github.com/argoproj/argo-workflows
     type: application
     urls:
-    - https://pasettifabio.github.io/recipes/main/argo-workflows/argo-workflows-0.41.4.tgz
+    - https://pasettifabio.github.io/recipes/argo-workflows/argo-workflows-0.41.4.tgz
     version: 0.41.4
-generated: "2024-05-14T11:36:12.557219+02:00"
+generated: "2024-05-14T11:40:49.330942+02:00"

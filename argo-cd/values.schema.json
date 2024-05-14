@@ -1,16 +1,31 @@
 {
-    "type": "object",
     "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome9",
     "definitions": {
-        "argo-cd": {
+        "Welcome9": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "images": {
+                    "$ref": "#/definitions/Images"
+                },
+                "crds": {
+                    "$ref": "#/definitions/Crds"
+                },
+                "createAggregateRoles": {
+                    "type": "boolean"
+                },
                 "nameOverride": {
-                    "type": "string"
+                    "type": "null"
                 },
                 "fullnameOverride": {
+                    "type": "null"
+                },
+                "namespaceOverride": {
                     "type": "string"
+                },
+                "commonLabels": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "kubeVersionOverride": {
                     "type": "string"
@@ -18,102 +33,228 @@
                 "apiVersionOverrides": {
                     "$ref": "#/definitions/APIVersionOverrides"
                 },
-                "createAggregateRoles": {
+                "singleNamespace": {
                     "type": "boolean"
                 },
-                "createClusterRoles": {
-                    "type": "boolean"
+                "workflow": {
+                    "$ref": "#/definitions/Workflow"
                 },
-                "openshift": {
-                    "$ref": "#/definitions/Openshift"
+                "controller": {
+                    "$ref": "#/definitions/Controller"
                 },
-                "crds": {
-                    "$ref": "#/definitions/Crds"
+                "mainContainer": {
+                    "$ref": "#/definitions/MainContainer"
                 },
-                "global": {
-                    "$ref": "#/definitions/Global"
+                "executor": {
+                    "$ref": "#/definitions/Executor"
                 },
-                "configs": {
-                    "$ref": "#/definitions/Configs"
+                "server": {
+                    "$ref": "#/definitions/Server"
                 },
                 "extraObjects": {
                     "type": "array",
                     "items": {}
                 },
-                "controller": {
-                    "$ref": "#/definitions/Controller"
+                "useStaticCredentials": {
+                    "type": "boolean"
                 },
-                "dex": {
-                    "$ref": "#/definitions/Dex"
+                "artifactRepository": {
+                    "$ref": "#/definitions/ArtifactRepository"
                 },
-                "redis": {
-                    "$ref": "#/definitions/argo-cdRedis"
+                "customArtifactRepository": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "redis-ha": {
-                    "$ref": "#/definitions/RedisHa"
+                "artifactRepositoryRef": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "externalRedis": {
-                    "$ref": "#/definitions/ExternalRedis"
-                },
-                "server": {
-                    "$ref": "#/definitions/Server"
-                },
-                "repoServer": {
-                    "$ref": "#/definitions/RepoServer"
-                },
-                "applicationSet": {
-                    "$ref": "#/definitions/ApplicationSet"
-                },
-                "notifications": {
-                    "$ref": "#/definitions/Notifications"
+                "emissary": {
+                    "$ref": "#/definitions/Emissary"
                 }
             },
             "required": [
                 "apiVersionOverrides",
-                "applicationSet",
-                "configs",
+                "artifactRepository",
+                "artifactRepositoryRef",
+                "commonLabels",
                 "controller",
                 "crds",
                 "createAggregateRoles",
-                "createClusterRoles",
-                "dex",
-                "externalRedis",
+                "customArtifactRepository",
+                "emissary",
+                "executor",
                 "extraObjects",
                 "fullnameOverride",
-                "global",
+                "images",
                 "kubeVersionOverride",
+                "mainContainer",
                 "nameOverride",
-                "notifications",
-                "openshift",
-                "redis",
-                "redis-ha",
-                "repoServer",
-                "server"
+                "namespaceOverride",
+                "server",
+                "singleNamespace",
+                "useStaticCredentials",
+                "workflow"
             ],
-            "title": "argo-cd"
+            "title": "Welcome9"
         },
         "APIVersionOverrides": {
             "type": "object",
             "additionalProperties": false,
+            "properties": {
+                "autoscaling": {
+                    "type": "string"
+                },
+                "cloudgoogle": {
+                    "type": "string"
+                },
+                "monitoring": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "autoscaling",
+                "cloudgoogle",
+                "monitoring"
+            ],
             "title": "APIVersionOverrides"
         },
-        "ApplicationSet": {
+        "ArtifactRepository": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "archiveLogs": {
+                    "type": "boolean"
+                },
+                "s3": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "gcs": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "azure": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                }
+            },
+            "required": [
+                "archiveLogs",
+                "azure",
+                "gcs",
+                "s3"
+            ],
+            "title": "ArtifactRepository"
+        },
+        "ArtifactRepositoryRef": {
+            "type": "object",
+            "additionalProperties": false,
+            "title": "ArtifactRepositoryRef"
+        },
+        "Controller": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "image": {
+                    "$ref": "#/definitions/Image"
+                },
+                "parallelism": {
+                    "type": "null"
+                },
+                "resourceRateLimit": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "rbac": {
+                    "$ref": "#/definitions/ControllerRbac"
+                },
+                "configMap": {
+                    "$ref": "#/definitions/ConfigMap"
+                },
+                "namespaceParallelism": {
+                    "type": "null"
+                },
+                "initialDelay": {
+                    "type": "null"
+                },
+                "deploymentAnnotations": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "podAnnotations": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "podLabels": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "podSecurityContext": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "metricsConfig": {
+                    "$ref": "#/definitions/MetricsConfig"
+                },
+                "securityContext": {
+                    "$ref": "#/definitions/SecurityContext"
+                },
+                "persistence": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "workflowDefaults": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "workflowWorkers": {
+                    "type": "null"
+                },
+                "workflowTTLWorkers": {
+                    "type": "null"
+                },
+                "podCleanupWorkers": {
+                    "type": "null"
+                },
+                "cronWorkflowWorkers": {
+                    "type": "null"
+                },
+                "workflowRestrictions": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "telemetryConfig": {
+                    "$ref": "#/definitions/TelemetryConfig"
+                },
+                "serviceMonitor": {
+                    "$ref": "#/definitions/ServiceMonitor"
+                },
+                "serviceAccount": {
+                    "$ref": "#/definitions/ServiceAccount"
+                },
                 "name": {
                     "type": "string"
                 },
-                "replicas": {
-                    "type": "integer"
+                "workflowNamespaces": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
-                "pdb": {
-                    "$ref": "#/definitions/Pdb"
+                "instanceID": {
+                    "$ref": "#/definitions/InstanceID"
                 },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
+                "logging": {
+                    "$ref": "#/definitions/Logging"
                 },
-                "imagePullSecrets": {
+                "serviceType": {
+                    "type": "string"
+                },
+                "serviceAnnotations": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "serviceLabels": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "loadBalancerSourceRanges": {
+                    "type": "array",
+                    "items": {}
+                },
+                "resources": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "livenessProbe": {
+                    "$ref": "#/definitions/LivenessProbe"
+                },
+                "extraEnv": {
                     "type": "array",
                     "items": {}
                 },
@@ -121,297 +262,426 @@
                     "type": "array",
                     "items": {}
                 },
-                "extraEnv": {
+                "volumeMounts": {
                     "type": "array",
                     "items": {}
                 },
-                "extraEnvFrom": {
+                "volumes": {
                     "type": "array",
                     "items": {}
                 },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraVolumeMounts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraVolumes": {
-                    "type": "array",
-                    "items": {}
-                },
-                "emptyDir": {
-                    "$ref": "#/definitions/EmptyDir"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/ApplicationSetMetrics"
-                },
-                "service": {
-                    "$ref": "#/definitions/ApplicationSetService"
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
-                },
-                "serviceAccount": {
-                    "$ref": "#/definitions/ServiceAccount"
-                },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/ApplicationSetContainerPorts"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "livenessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "terminationGracePeriodSeconds": {
+                "replicas": {
                     "type": "integer"
                 },
+                "revisionHistoryLimit": {
+                    "type": "integer"
+                },
+                "pdb": {
+                    "$ref": "#/definitions/NodeEvents"
+                },
                 "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/NodeSelector"
                 },
                 "tolerations": {
                     "type": "array",
                     "items": {}
                 },
                 "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "topologySpreadConstraints": {
                     "type": "array",
                     "items": {}
                 },
-                "deploymentStrategy": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
                 "priorityClassName": {
                     "type": "string"
                 },
-                "certificate": {
-                    "$ref": "#/definitions/Certificate"
+                "links": {
+                    "type": "array",
+                    "items": {}
                 },
-                "ingress": {
-                    "$ref": "#/definitions/Ingress"
+                "columns": {
+                    "type": "array",
+                    "items": {}
                 },
-                "allowAnyNamespace": {
-                    "type": "boolean"
+                "navColor": {
+                    "type": "string"
+                },
+                "clusterWorkflowTemplates": {
+                    "$ref": "#/definitions/ControllerClusterWorkflowTemplates"
+                },
+                "extraContainers": {
+                    "type": "array",
+                    "items": {}
+                },
+                "extraInitContainers": {
+                    "type": "array",
+                    "items": {}
+                },
+                "retentionPolicy": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "nodeEvents": {
+                    "$ref": "#/definitions/NodeEvents"
+                },
+                "kubeConfig": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "podGCGracePeriodSeconds": {
+                    "type": "null"
+                },
+                "podGCDeleteDelayDuration": {
+                    "type": "string"
                 }
             },
             "required": [
                 "affinity",
-                "allowAnyNamespace",
-                "automountServiceAccountToken",
-                "certificate",
-                "containerPorts",
-                "containerSecurityContext",
+                "clusterWorkflowTemplates",
+                "columns",
+                "configMap",
+                "cronWorkflowWorkers",
                 "deploymentAnnotations",
-                "deploymentStrategy",
-                "dnsConfig",
-                "dnsPolicy",
-                "emptyDir",
                 "extraArgs",
                 "extraContainers",
                 "extraEnv",
-                "extraEnvFrom",
-                "extraVolumeMounts",
-                "extraVolumes",
+                "extraInitContainers",
                 "image",
-                "imagePullSecrets",
-                "ingress",
-                "initContainers",
+                "initialDelay",
+                "instanceID",
+                "kubeConfig",
+                "links",
                 "livenessProbe",
-                "metrics",
+                "loadBalancerSourceRanges",
+                "logging",
+                "metricsConfig",
                 "name",
+                "namespaceParallelism",
+                "navColor",
+                "nodeEvents",
                 "nodeSelector",
+                "parallelism",
                 "pdb",
+                "persistence",
                 "podAnnotations",
+                "podCleanupWorkers",
+                "podGCDeleteDelayDuration",
+                "podGCGracePeriodSeconds",
                 "podLabels",
+                "podSecurityContext",
                 "priorityClassName",
-                "readinessProbe",
+                "rbac",
                 "replicas",
+                "resourceRateLimit",
                 "resources",
-                "service",
+                "retentionPolicy",
+                "revisionHistoryLimit",
+                "securityContext",
                 "serviceAccount",
-                "terminationGracePeriodSeconds",
+                "serviceAnnotations",
+                "serviceLabels",
+                "serviceMonitor",
+                "serviceType",
+                "telemetryConfig",
                 "tolerations",
-                "topologySpreadConstraints"
+                "topologySpreadConstraints",
+                "volumeMounts",
+                "volumes",
+                "workflowDefaults",
+                "workflowNamespaces",
+                "workflowRestrictions",
+                "workflowTTLWorkers",
+                "workflowWorkers"
             ],
-            "title": "ApplicationSet"
+            "title": "Controller"
         },
-        "Certificate": {
+        "ControllerClusterWorkflowTemplates": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "enabled": {
                     "type": "boolean"
                 },
-                "secretName": {
-                    "type": "string"
-                },
-                "domain": {
-                    "type": "string"
-                },
-                "additionalHosts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "duration": {
-                    "type": "string"
-                },
-                "renewBefore": {
-                    "type": "string"
-                },
-                "issuer": {
-                    "$ref": "#/definitions/Issuer"
-                },
-                "privateKey": {
-                    "$ref": "#/definitions/PrivateKey"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "usages": {
+                "serviceAccounts": {
                     "type": "array",
                     "items": {}
                 }
             },
             "required": [
-                "additionalHosts",
-                "annotations",
-                "domain",
-                "duration",
                 "enabled",
-                "issuer",
-                "privateKey",
-                "renewBefore",
-                "secretName"
+                "serviceAccounts"
             ],
-            "title": "Certificate"
+            "title": "ControllerClusterWorkflowTemplates"
         },
-        "Issuer": {
+        "ConfigMap": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "group": {
-                    "type": "string"
-                },
-                "kind": {
-                    "type": "string"
+                "create": {
+                    "type": "boolean"
                 },
                 "name": {
                     "type": "string"
                 }
             },
             "required": [
-                "group",
-                "kind",
+                "create",
                 "name"
             ],
-            "title": "Issuer"
+            "title": "ConfigMap"
         },
-        "PrivateKey": {
+        "Image": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "rotationPolicy": {
+                "registry": {
                     "type": "string"
                 },
-                "encoding": {
+                "repository": {
                     "type": "string"
                 },
-                "algorithm": {
+                "tag": {
                     "type": "string"
                 },
-                "size": {
-                    "type": "integer"
+                "pullPolicy": {
+                    "type": "string"
                 }
             },
             "required": [
-                "algorithm",
-                "encoding",
-                "rotationPolicy",
-                "size"
+                "registry",
+                "repository",
+                "tag"
             ],
-            "title": "PrivateKey"
+            "title": "Image"
         },
-        "ApplicationSetContainerPorts": {
+        "InstanceID": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "metrics": {
-                    "type": "integer"
-                },
-                "probe": {
-                    "type": "integer"
-                },
-                "webhook": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "metrics",
-                "probe",
-                "webhook"
-            ],
-            "title": "ApplicationSetContainerPorts"
-        },
-        "ApplicationSetContainerSecurityContext": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "runAsNonRoot": {
+                "enabled": {
                     "type": "boolean"
                 },
+                "useReleaseName": {
+                    "type": "boolean"
+                },
+                "explicitID": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "enabled",
+                "explicitID",
+                "useReleaseName"
+            ],
+            "title": "InstanceID"
+        },
+        "LivenessProbe": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "httpGet": {
+                    "$ref": "#/definitions/HTTPGet"
+                },
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "periodSeconds": {
+                    "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "failureThreshold",
+                "httpGet",
+                "initialDelaySeconds",
+                "periodSeconds",
+                "timeoutSeconds"
+            ],
+            "title": "LivenessProbe"
+        },
+        "HTTPGet": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "port": {
+                    "type": "integer"
+                },
+                "path": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "path",
+                "port"
+            ],
+            "title": "HTTPGet"
+        },
+        "Logging": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "level": {
+                    "type": "string"
+                },
+                "globallevel": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "format": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "format",
+                "globallevel",
+                "level"
+            ],
+            "title": "Logging"
+        },
+        "MetricsConfig": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "metricsTTL": {
+                    "type": "string"
+                },
+                "ignoreErrors": {
+                    "type": "boolean"
+                },
+                "secure": {
+                    "type": "boolean"
+                },
+                "portName": {
+                    "type": "string"
+                },
+                "servicePort": {
+                    "type": "integer"
+                },
+                "servicePortName": {
+                    "type": "string"
+                },
+                "headlessService": {
+                    "type": "boolean"
+                },
+                "relabelings": {
+                    "type": "array",
+                    "items": {}
+                },
+                "metricRelabelings": {
+                    "type": "array",
+                    "items": {}
+                },
+                "targetLabels": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "enabled",
+                "headlessService",
+                "ignoreErrors",
+                "metricRelabelings",
+                "metricsTTL",
+                "path",
+                "port",
+                "portName",
+                "relabelings",
+                "secure",
+                "servicePort",
+                "servicePortName",
+                "targetLabels"
+            ],
+            "title": "MetricsConfig"
+        },
+        "NodeEvents": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "enabled"
+            ],
+            "title": "NodeEvents"
+        },
+        "NodeSelector": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kubernetes.io/os": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kubernetes.io/os"
+            ],
+            "title": "NodeSelector"
+        },
+        "ControllerRbac": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                },
+                "secretWhitelist": {
+                    "type": "array",
+                    "items": {}
+                },
+                "accessAllSecrets": {
+                    "type": "boolean"
+                },
+                "writeConfigMaps": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "accessAllSecrets",
+                "create",
+                "secretWhitelist",
+                "writeConfigMaps"
+            ],
+            "title": "ControllerRbac"
+        },
+        "SecurityContext": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
                 "readOnlyRootFilesystem": {
+                    "type": "boolean"
+                },
+                "runAsNonRoot": {
                     "type": "boolean"
                 },
                 "allowPrivilegeEscalation": {
                     "type": "boolean"
                 },
-                "seccompProfile": {
-                    "$ref": "#/definitions/DeploymentStrategy"
-                },
                 "capabilities": {
                     "$ref": "#/definitions/Capabilities"
-                },
-                "runAsUser": {
-                    "type": "integer"
                 }
             },
             "required": [
                 "allowPrivilegeEscalation",
                 "capabilities",
                 "readOnlyRootFilesystem",
-                "runAsNonRoot",
-                "seccompProfile"
+                "runAsNonRoot"
             ],
-            "title": "ApplicationSetContainerSecurityContext"
+            "title": "SecurityContext"
         },
         "Capabilities": {
             "type": "object",
@@ -429,377 +699,6 @@
             ],
             "title": "Capabilities"
         },
-        "DeploymentStrategy": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "type": {
-                    "$ref": "#/definitions/Type"
-                }
-            },
-            "required": [
-                "type"
-            ],
-            "title": "DeploymentStrategy"
-        },
-        "EmptyDir": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "sizeLimit": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "sizeLimit"
-            ],
-            "title": "EmptyDir"
-        },
-        "InitImageClass": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "repository": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                },
-                "imagePullPolicy": {
-                    "$ref": "#/definitions/ImagePullPolicy"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "imagePullPolicy",
-                "repository",
-                "tag"
-            ],
-            "title": "InitImageClass"
-        },
-        "Ingress": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "ingressClassName": {
-                    "type": "string"
-                },
-                "hostname": {
-                    "type": "string"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "pathType": {
-                    "type": "string"
-                },
-                "tls": {
-                    "type": "boolean"
-                },
-                "extraHosts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraPaths": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraRules": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraTls": {
-                    "type": "array",
-                    "items": {}
-                },
-                "controller": {
-                    "type": "string"
-                },
-                "aws": {
-                    "$ref": "#/definitions/Aws"
-                },
-                "gke": {
-                    "$ref": "#/definitions/Gke"
-                }
-            },
-            "required": [
-                "annotations",
-                "enabled",
-                "extraHosts",
-                "extraPaths",
-                "extraRules",
-                "extraTls",
-                "hostname",
-                "ingressClassName",
-                "labels",
-                "path",
-                "pathType",
-                "tls"
-            ],
-            "title": "Ingress"
-        },
-        "Aws": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "backendProtocolVersion": {
-                    "type": "string"
-                },
-                "serviceType": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "backendProtocolVersion",
-                "serviceType"
-            ],
-            "title": "Aws"
-        },
-        "Gke": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "backendConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "frontendConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "managedCertificate": {
-                    "$ref": "#/definitions/ManagedCertificate"
-                }
-            },
-            "required": [
-                "backendConfig",
-                "frontendConfig",
-                "managedCertificate"
-            ],
-            "title": "Gke"
-        },
-        "ManagedCertificate": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                },
-                "extraDomains": {
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "create",
-                "extraDomains"
-            ],
-            "title": "ManagedCertificate"
-        },
-        "ApplicationSetLivenessProbe": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "initialDelaySeconds": {
-                    "type": "integer"
-                },
-                "periodSeconds": {
-                    "type": "integer"
-                },
-                "timeoutSeconds": {
-                    "type": "integer"
-                },
-                "successThreshold": {
-                    "type": "integer"
-                },
-                "failureThreshold": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "failureThreshold",
-                "initialDelaySeconds",
-                "periodSeconds",
-                "successThreshold",
-                "timeoutSeconds"
-            ],
-            "title": "ApplicationSetLivenessProbe"
-        },
-        "ApplicationSetMetrics": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "service": {
-                    "$ref": "#/definitions/PurpleService"
-                },
-                "serviceMonitor": {
-                    "$ref": "#/definitions/ServiceMonitor"
-                }
-            },
-            "required": [
-                "enabled",
-                "service",
-                "serviceMonitor"
-            ],
-            "title": "ApplicationSetMetrics"
-        },
-        "PurpleService": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "type": {
-                    "type": "string"
-                },
-                "clusterIP": {
-                    "type": "string"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "servicePort": {
-                    "type": "integer"
-                },
-                "portName": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "clusterIP",
-                "labels",
-                "portName",
-                "type"
-            ],
-            "title": "PurpleService"
-        },
-        "ServiceMonitor": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "interval": {
-                    "type": "string"
-                },
-                "scrapeTimeout": {
-                    "type": "string"
-                },
-                "relabelings": {
-                    "type": "array",
-                    "items": {}
-                },
-                "metricRelabelings": {
-                    "type": "array",
-                    "items": {}
-                },
-                "selector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "scheme": {
-                    "type": "string"
-                },
-                "tlsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "namespace": {
-                    "type": "string"
-                },
-                "additionalLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "additionalLabels",
-                "annotations",
-                "enabled",
-                "metricRelabelings",
-                "relabelings",
-                "scheme",
-                "selector",
-                "tlsConfig"
-            ],
-            "title": "ServiceMonitor"
-        },
-        "Pdb": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "minAvailable": {
-                    "type": "string"
-                },
-                "maxUnavailable": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "enabled",
-                "labels",
-                "maxUnavailable",
-                "minAvailable"
-            ],
-            "title": "Pdb"
-        },
-        "ApplicationSetService": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "integer"
-                },
-                "portName": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "labels",
-                "port",
-                "portName",
-                "type"
-            ],
-            "title": "ApplicationSetService"
-        },
         "ServiceAccount": {
             "type": "object",
             "additionalProperties": false,
@@ -810,687 +709,86 @@
                 "name": {
                     "type": "string"
                 },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
                 "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
+                "annotations": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "items": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                "pullSecrets": {
+                    "type": "array",
+                    "items": {}
                 }
             },
             "required": [
                 "annotations",
                 "create",
+                "labels",
                 "name"
             ],
             "title": "ServiceAccount"
         },
-        "Configs": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "cm": {
-                    "$ref": "#/definitions/ConfigsCM"
-                },
-                "params": {
-                    "$ref": "#/definitions/Params"
-                },
-                "rbac": {
-                    "$ref": "#/definitions/Rbac"
-                },
-                "gpg": {
-                    "$ref": "#/definitions/GPG"
-                },
-                "ssh": {
-                    "$ref": "#/definitions/SSH"
-                },
-                "tls": {
-                    "$ref": "#/definitions/TLS"
-                },
-                "cmp": {
-                    "$ref": "#/definitions/Cmp"
-                },
-                "clusterCredentials": {
-                    "type": "array",
-                    "items": {}
-                },
-                "credentialTemplates": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "credentialTemplatesAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "repositories": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "repositoriesAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "secret": {
-                    "$ref": "#/definitions/Secret"
-                },
-                "styles": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "clusterCredentials",
-                "cm",
-                "cmp",
-                "credentialTemplates",
-                "credentialTemplatesAnnotations",
-                "gpg",
-                "params",
-                "rbac",
-                "repositories",
-                "repositoriesAnnotations",
-                "secret",
-                "ssh",
-                "styles",
-                "tls"
-            ],
-            "title": "Configs"
-        },
-        "ConfigsCM": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "application.instanceLabelKey": {
-                    "type": "string"
-                },
-                "server.rbac.log.enforce.enable": {
-                    "type": "boolean"
-                },
-                "exec.enabled": {
-                    "type": "boolean"
-                },
-                "admin.enabled": {
-                    "type": "boolean"
-                },
-                "timeout.reconciliation": {
-                    "type": "string"
-                },
-                "timeout.hard.reconciliation": {
-                    "type": "string"
-                },
-                "statusbadge.enabled": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "admin.enabled",
-                "annotations",
-                "application.instanceLabelKey",
-                "create",
-                "exec.enabled",
-                "server.rbac.log.enforce.enable",
-                "statusbadge.enabled",
-                "timeout.hard.reconciliation",
-                "timeout.reconciliation"
-            ],
-            "title": "ConfigsCM"
-        },
-        "Cmp": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "plugins": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "annotations",
-                "create",
-                "plugins"
-            ],
-            "title": "Cmp"
-        },
-        "GPG": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "keys": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "annotations",
-                "keys"
-            ],
-            "title": "GPG"
-        },
-        "Params": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "otlp.address": {
-                    "type": "string"
-                },
-                "controller.status.processors": {
-                    "type": "integer"
-                },
-                "controller.operation.processors": {
-                    "type": "integer"
-                },
-                "controller.self.heal.timeout.seconds": {
-                    "type": "integer"
-                },
-                "controller.repo.server.timeout.seconds": {
-                    "type": "integer"
-                },
-                "server.insecure": {
-                    "type": "boolean"
-                },
-                "server.basehref": {
-                    "type": "string"
-                },
-                "server.rootpath": {
-                    "type": "string"
-                },
-                "server.staticassets": {
-                    "type": "string"
-                },
-                "server.disable.auth": {
-                    "type": "boolean"
-                },
-                "server.enable.gzip": {
-                    "type": "boolean"
-                },
-                "server.x.frame.options": {
-                    "type": "string"
-                },
-                "reposerver.parallelism.limit": {
-                    "type": "integer"
-                },
-                "applicationsetcontroller.policy": {
-                    "type": "string"
-                },
-                "applicationsetcontroller.enable.progressive.syncs": {
-                    "type": "boolean"
-                },
-                "application.namespaces": {
-                    "type": "string"
-                },
-                "controller.ignore.normalizer.jq.timeout": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "application.namespaces",
-                "applicationsetcontroller.enable.progressive.syncs",
-                "applicationsetcontroller.policy",
-                "controller.ignore.normalizer.jq.timeout",
-                "controller.operation.processors",
-                "controller.repo.server.timeout.seconds",
-                "controller.self.heal.timeout.seconds",
-                "controller.status.processors",
-                "create",
-                "otlp.address",
-                "reposerver.parallelism.limit",
-                "server.basehref",
-                "server.disable.auth",
-                "server.enable.gzip",
-                "server.insecure",
-                "server.rootpath",
-                "server.staticassets",
-                "server.x.frame.options"
-            ],
-            "title": "Params"
-        },
-        "Rbac": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "policy.default": {
-                    "type": "string"
-                },
-                "policy.csv": {
-                    "type": "string"
-                },
-                "scopes": {
-                    "type": "string"
-                },
-                "policy.matchMode": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "create",
-                "policy.csv",
-                "policy.default",
-                "policy.matchMode",
-                "scopes"
-            ],
-            "title": "Rbac"
-        },
-        "Secret": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "createSecret": {
-                    "type": "boolean"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "githubSecret": {
-                    "type": "string"
-                },
-                "gitlabSecret": {
-                    "type": "string"
-                },
-                "bitbucketServerSecret": {
-                    "type": "string"
-                },
-                "bitbucketUUID": {
-                    "type": "string"
-                },
-                "gogsSecret": {
-                    "type": "string"
-                },
-                "azureDevops": {
-                    "$ref": "#/definitions/AzureDevops"
-                },
-                "extra": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "argocdServerAdminPassword": {
-                    "type": "string"
-                },
-                "argocdServerAdminPasswordMtime": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "argocdServerAdminPassword",
-                "argocdServerAdminPasswordMtime",
-                "azureDevops",
-                "bitbucketServerSecret",
-                "bitbucketUUID",
-                "createSecret",
-                "extra",
-                "githubSecret",
-                "gitlabSecret",
-                "gogsSecret",
-                "labels"
-            ],
-            "title": "Secret"
-        },
-        "AzureDevops": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "username": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "password",
-                "username"
-            ],
-            "title": "AzureDevops"
-        },
-        "SSH": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "knownHosts": {
-                    "type": "string"
-                },
-                "extraHosts": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "extraHosts",
-                "knownHosts"
-            ],
-            "title": "SSH"
-        },
-        "TLS": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "certificates": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "annotations",
-                "certificates"
-            ],
-            "title": "TLS"
-        },
-        "Controller": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "replicas": {
-                    "type": "integer"
-                },
-                "dynamicClusterDistribution": {
-                    "type": "boolean"
-                },
-                "heartbeatTime": {
-                    "type": "integer"
-                },
-                "revisionHistoryLimit": {
-                    "type": "integer"
-                },
-                "pdb": {
-                    "$ref": "#/definitions/Pdb"
-                },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "imagePullSecrets": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraArgs": {
-                    "type": "array",
-                    "items": {}
-                },
-                "env": {
-                    "type": "array",
-                    "items": {}
-                },
-                "envFrom": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumeMounts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumes": {
-                    "type": "array",
-                    "items": {}
-                },
-                "emptyDir": {
-                    "$ref": "#/definitions/EmptyDir"
-                },
-                "statefulsetAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/ControllerContainerPorts"
-                },
-                "hostNetwork": {
-                    "type": "boolean"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
-                },
-                "serviceAccount": {
-                    "$ref": "#/definitions/ServiceAccount"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/ControllerMetrics"
-                },
-                "clusterRoleRules": {
-                    "$ref": "#/definitions/ControllerClusterRoleRules"
-                }
-            },
-            "required": [
-                "affinity",
-                "automountServiceAccountToken",
-                "clusterRoleRules",
-                "containerPorts",
-                "containerSecurityContext",
-                "deploymentAnnotations",
-                "dnsConfig",
-                "dnsPolicy",
-                "dynamicClusterDistribution",
-                "emptyDir",
-                "env",
-                "envFrom",
-                "extraArgs",
-                "extraContainers",
-                "heartbeatTime",
-                "hostNetwork",
-                "image",
-                "imagePullSecrets",
-                "initContainers",
-                "metrics",
-                "name",
-                "nodeSelector",
-                "pdb",
-                "podAnnotations",
-                "podLabels",
-                "priorityClassName",
-                "readinessProbe",
-                "replicas",
-                "resources",
-                "revisionHistoryLimit",
-                "serviceAccount",
-                "statefulsetAnnotations",
-                "terminationGracePeriodSeconds",
-                "tolerations",
-                "topologySpreadConstraints",
-                "volumeMounts",
-                "volumes"
-            ],
-            "title": "Controller"
-        },
-        "ControllerClusterRoleRules": {
+        "ServiceMonitor": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "enabled": {
                     "type": "boolean"
                 },
-                "rules": {
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "enabled",
-                "rules"
-            ],
-            "title": "ControllerClusterRoleRules"
-        },
-        "ControllerContainerPorts": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "metrics": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "metrics"
-            ],
-            "title": "ControllerContainerPorts"
-        },
-        "ControllerMetrics": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "scrapeTimeout": {
-                    "type": "string"
-                },
-                "applicationLabels": {
-                    "$ref": "#/definitions/ApplicationLabels"
-                },
-                "service": {
-                    "$ref": "#/definitions/PurpleService"
-                },
-                "serviceMonitor": {
-                    "$ref": "#/definitions/ServiceMonitor"
-                },
-                "rules": {
-                    "$ref": "#/definitions/Rules"
-                }
-            },
-            "required": [
-                "applicationLabels",
-                "enabled",
-                "rules",
-                "scrapeTimeout",
-                "service",
-                "serviceMonitor"
-            ],
-            "title": "ControllerMetrics"
-        },
-        "ApplicationLabels": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "labels": {
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "enabled",
-                "labels"
-            ],
-            "title": "ApplicationLabels"
-        },
-        "Rules": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
+                "additionalLabels": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "namespace": {
                     "type": "string"
-                },
-                "selector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "additionalLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "spec": {
-                    "type": "array",
-                    "items": {}
                 }
             },
             "required": [
                 "additionalLabels",
-                "annotations",
                 "enabled",
-                "namespace",
-                "selector",
-                "spec"
+                "namespace"
             ],
-            "title": "Rules"
+            "title": "ServiceMonitor"
+        },
+        "TelemetryConfig": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "metricsTTL": {
+                    "type": "string"
+                },
+                "ignoreErrors": {
+                    "type": "boolean"
+                },
+                "secure": {
+                    "type": "boolean"
+                },
+                "servicePort": {
+                    "type": "integer"
+                },
+                "servicePortName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "enabled",
+                "ignoreErrors",
+                "metricsTTL",
+                "path",
+                "port",
+                "secure",
+                "servicePort",
+                "servicePortName"
+            ],
+            "title": "TelemetryConfig"
         },
         "Crds": {
             "type": "object",
@@ -1503,49 +801,92 @@
                     "type": "boolean"
                 },
                 "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "additionalLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 }
             },
             "required": [
-                "additionalLabels",
                 "annotations",
                 "install",
                 "keep"
             ],
             "title": "Crds"
         },
-        "Dex": {
+        "Emissary": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "enabled": {
-                    "type": "boolean"
+                "images": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "images"
+            ],
+            "title": "Emissary"
+        },
+        "Executor": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "image": {
+                    "$ref": "#/definitions/Image"
                 },
-                "name": {
+                "resources": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "args": {
+                    "type": "array",
+                    "items": {}
+                },
+                "env": {
+                    "type": "array",
+                    "items": {}
+                },
+                "securityContext": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                }
+            },
+            "required": [
+                "args",
+                "env",
+                "image",
+                "resources",
+                "securityContext"
+            ],
+            "title": "Executor"
+        },
+        "Images": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "tag": {
                     "type": "string"
                 },
-                "extraArgs": {
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "pullSecrets": {
                     "type": "array",
                     "items": {}
+                }
+            },
+            "required": [
+                "pullPolicy",
+                "pullSecrets",
+                "tag"
+            ],
+            "title": "Images"
+        },
+        "MainContainer": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "imagePullPolicy": {
+                    "type": "string"
                 },
-                "metrics": {
-                    "$ref": "#/definitions/DexMetrics"
-                },
-                "pdb": {
-                    "$ref": "#/definitions/Pdb"
-                },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "imagePullSecrets": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initImage": {
-                    "$ref": "#/definitions/InitImageClass"
+                "resources": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "env": {
                     "type": "array",
@@ -1555,1263 +896,128 @@
                     "type": "array",
                     "items": {}
                 },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumeMounts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumes": {
-                    "type": "array",
-                    "items": {}
-                },
-                "emptyDir": {
-                    "$ref": "#/definitions/EmptyDir"
-                },
-                "certificateSecret": {
-                    "$ref": "#/definitions/CertificateSecret"
-                },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/DexContainerPorts"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "livenessProbe": {
-                    "$ref": "#/definitions/DexLivenessProbe"
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/DexLivenessProbe"
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
-                },
-                "serviceAccount": {
-                    "$ref": "#/definitions/ServiceAccount"
-                },
-                "servicePortHttp": {
-                    "type": "integer"
-                },
-                "servicePortHttpName": {
-                    "type": "string"
-                },
-                "servicePortGrpc": {
-                    "type": "integer"
-                },
-                "servicePortGrpcName": {
-                    "type": "string"
-                },
-                "servicePortMetrics": {
-                    "type": "integer"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "deploymentStrategy": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "logFormat": {
-                    "type": "string"
-                },
-                "logLevel": {
-                    "type": "string"
+                "securityContext": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 }
             },
             "required": [
-                "affinity",
-                "automountServiceAccountToken",
-                "certificateSecret",
-                "containerPorts",
-                "containerSecurityContext",
-                "deploymentAnnotations",
-                "deploymentStrategy",
-                "dnsConfig",
-                "dnsPolicy",
-                "emptyDir",
-                "enabled",
                 "env",
                 "envFrom",
-                "extraArgs",
-                "extraContainers",
-                "image",
-                "imagePullSecrets",
-                "initContainers",
-                "initImage",
-                "livenessProbe",
-                "logFormat",
-                "logLevel",
-                "metrics",
-                "name",
-                "nodeSelector",
-                "pdb",
-                "podAnnotations",
-                "podLabels",
-                "priorityClassName",
-                "readinessProbe",
+                "imagePullPolicy",
                 "resources",
-                "serviceAccount",
-                "servicePortGrpc",
-                "servicePortGrpcName",
-                "servicePortHttp",
-                "servicePortHttpName",
-                "servicePortMetrics",
-                "terminationGracePeriodSeconds",
-                "tolerations",
-                "topologySpreadConstraints",
-                "volumeMounts",
-                "volumes"
+                "securityContext"
             ],
-            "title": "Dex"
+            "title": "MainContainer"
         },
-        "CertificateSecret": {
+        "Server": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "enabled": {
                     "type": "boolean"
                 },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "ca": {
+                "baseHref": {
                     "type": "string"
-                },
-                "key": {
-                    "type": "string"
-                },
-                "crt": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "crt",
-                "enabled",
-                "key",
-                "labels"
-            ],
-            "title": "CertificateSecret"
-        },
-        "DexContainerPorts": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "http": {
-                    "type": "integer"
-                },
-                "grpc": {
-                    "type": "integer"
-                },
-                "metrics": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "grpc",
-                "http",
-                "metrics"
-            ],
-            "title": "DexContainerPorts"
-        },
-        "DexLivenessProbe": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "httpPath": {
-                    "type": "string"
-                },
-                "httpPort": {
-                    "type": "string"
-                },
-                "httpScheme": {
-                    "type": "string"
-                },
-                "failureThreshold": {
-                    "type": "integer"
-                },
-                "initialDelaySeconds": {
-                    "type": "integer"
-                },
-                "periodSeconds": {
-                    "type": "integer"
-                },
-                "successThreshold": {
-                    "type": "integer"
-                },
-                "timeoutSeconds": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "enabled",
-                "failureThreshold",
-                "httpPath",
-                "httpPort",
-                "httpScheme",
-                "initialDelaySeconds",
-                "periodSeconds",
-                "successThreshold",
-                "timeoutSeconds"
-            ],
-            "title": "DexLivenessProbe"
-        },
-        "DexMetrics": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "service": {
-                    "$ref": "#/definitions/RepoServerService"
-                },
-                "serviceMonitor": {
-                    "$ref": "#/definitions/ServiceMonitor"
-                }
-            },
-            "required": [
-                "enabled",
-                "service",
-                "serviceMonitor"
-            ],
-            "title": "DexMetrics"
-        },
-        "RepoServerService": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "portName": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "annotations",
-                "labels",
-                "portName"
-            ],
-            "title": "RepoServerService"
-        },
-        "ExternalRedis": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "host": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "integer"
-                },
-                "existingSecret": {
-                    "type": "string"
-                },
-                "secretAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "existingSecret",
-                "host",
-                "password",
-                "port",
-                "secretAnnotations",
-                "username"
-            ],
-            "title": "ExternalRedis"
-        },
-        "Global": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "domain": {
-                    "type": "string"
-                },
-                "additionalLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "revisionHistoryLimit": {
-                    "type": "integer"
                 },
                 "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "imagePullSecrets": {
-                    "type": "array",
-                    "items": {}
-                },
-                "logging": {
-                    "$ref": "#/definitions/Logging"
-                },
-                "statefulsetAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/Image"
                 },
                 "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "addPrometheusAnnotations": {
-                    "type": "boolean"
+                "podSecurityContext": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "rbac": {
+                    "$ref": "#/definitions/ServerRbac"
                 },
                 "securityContext": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                    "$ref": "#/definitions/SecurityContext"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "serviceType": {
+                    "type": "string"
+                },
+                "servicePort": {
+                    "type": "integer"
+                },
+                "serviceNodePort": {
+                    "type": "null"
+                },
+                "servicePortName": {
+                    "type": "string"
                 },
                 "hostAliases": {
                     "type": "array",
                     "items": {}
                 },
-                "networkPolicy": {
-                    "$ref": "#/definitions/NetworkPolicy"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "affinity": {
-                    "$ref": "#/definitions/Affinity"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "deploymentStrategy": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "env": {
-                    "type": "array",
-                    "items": {}
-                },
-                "certificateAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "addPrometheusAnnotations",
-                "additionalLabels",
-                "affinity",
-                "certificateAnnotations",
-                "deploymentAnnotations",
-                "deploymentStrategy",
-                "domain",
-                "env",
-                "hostAliases",
-                "image",
-                "imagePullSecrets",
-                "logging",
-                "networkPolicy",
-                "nodeSelector",
-                "podAnnotations",
-                "podLabels",
-                "priorityClassName",
-                "revisionHistoryLimit",
-                "securityContext",
-                "statefulsetAnnotations",
-                "tolerations",
-                "topologySpreadConstraints"
-            ],
-            "title": "Global"
-        },
-        "Affinity": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "podAntiAffinity": {
-                    "type": "string"
-                },
-                "nodeAffinity": {
-                    "$ref": "#/definitions/NodeAffinity"
-                }
-            },
-            "required": [
-                "nodeAffinity",
-                "podAntiAffinity"
-            ],
-            "title": "Affinity"
-        },
-        "NodeAffinity": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "type": {
-                    "type": "string"
-                },
-                "matchExpressions": {
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "matchExpressions",
-                "type"
-            ],
-            "title": "NodeAffinity"
-        },
-        "Logging": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "format": {
-                    "type": "string"
-                },
-                "level": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "format",
-                "level"
-            ],
-            "title": "Logging"
-        },
-        "NetworkPolicy": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                },
-                "defaultDenyIngress": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "create",
-                "defaultDenyIngress"
-            ],
-            "title": "NetworkPolicy"
-        },
-        "Notifications": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "argocdUrl": {
-                    "type": "string"
-                },
-                "pdb": {
-                    "$ref": "#/definitions/Pdb"
-                },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "imagePullSecrets": {
-                    "type": "array",
-                    "items": {}
-                },
-                "logFormat": {
-                    "type": "string"
-                },
-                "logLevel": {
-                    "type": "string"
-                },
-                "extraArgs": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraEnv": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraEnvFrom": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraVolumeMounts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "extraVolumes": {
-                    "type": "array",
-                    "items": {}
-                },
-                "context": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "secret": {
-                    "$ref": "#/definitions/ServiceAccount"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/NotificationsMetrics"
-                },
-                "notifiers": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/ControllerContainerPorts"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "deploymentStrategy": {
-                    "$ref": "#/definitions/DeploymentStrategy"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
-                },
                 "serviceAccount": {
                     "$ref": "#/definitions/ServiceAccount"
                 },
-                "cm": {
-                    "$ref": "#/definitions/NotificationsCM"
+                "serviceAnnotations": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "clusterRoleRules": {
-                    "$ref": "#/definitions/NotificationsClusterRoleRules"
+                "serviceLabels": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
-                "subscriptions": {
-                    "type": "array",
-                    "items": {}
-                },
-                "templates": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "triggers": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "affinity",
-                "argocdUrl",
-                "automountServiceAccountToken",
-                "clusterRoleRules",
-                "cm",
-                "containerPorts",
-                "containerSecurityContext",
-                "context",
-                "deploymentAnnotations",
-                "deploymentStrategy",
-                "dnsConfig",
-                "dnsPolicy",
-                "enabled",
-                "extraArgs",
-                "extraContainers",
-                "extraEnv",
-                "extraEnvFrom",
-                "extraVolumeMounts",
-                "extraVolumes",
-                "image",
-                "imagePullSecrets",
-                "initContainers",
-                "logFormat",
-                "logLevel",
-                "metrics",
-                "name",
-                "nodeSelector",
-                "notifiers",
-                "pdb",
-                "podAnnotations",
-                "podLabels",
-                "priorityClassName",
-                "resources",
-                "secret",
-                "serviceAccount",
-                "subscriptions",
-                "templates",
-                "terminationGracePeriodSeconds",
-                "tolerations",
-                "topologySpreadConstraints",
-                "triggers"
-            ],
-            "title": "Notifications"
-        },
-        "NotificationsClusterRoleRules": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "rules": {
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "rules"
-            ],
-            "title": "NotificationsClusterRoleRules"
-        },
-        "NotificationsCM": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "create": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "create"
-            ],
-            "title": "NotificationsCM"
-        },
-        "NotificationsMetrics": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "port": {
-                    "type": "integer"
-                },
-                "service": {
-                    "$ref": "#/definitions/PurpleService"
-                },
-                "serviceMonitor": {
-                    "$ref": "#/definitions/ServiceMonitor"
-                }
-            },
-            "required": [
-                "enabled",
-                "port",
-                "service",
-                "serviceMonitor"
-            ],
-            "title": "NotificationsMetrics"
-        },
-        "Openshift": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "enabled"
-            ],
-            "title": "Openshift"
-        },
-        "argo-cdRedis": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "name": {
+                "loadBalancerIP": {
                     "type": "string"
                 },
-                "pdb": {
-                    "$ref": "#/definitions/Pdb"
-                },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "exporter": {
-                    "$ref": "#/definitions/RedisExporter"
-                },
-                "imagePullSecrets": {
+                "loadBalancerSourceRanges": {
                     "type": "array",
                     "items": {}
-                },
-                "extraArgs": {
-                    "type": "array",
-                    "items": {}
-                },
-                "env": {
-                    "type": "array",
-                    "items": {}
-                },
-                "envFrom": {
-                    "type": "array",
-                    "items": {}
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "livenessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumeMounts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumes": {
-                    "type": "array",
-                    "items": {}
-                },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
                 },
                 "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "securityContext": {
-                    "$ref": "#/definitions/SecurityContext"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/RedisContainerPorts"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/RedisContainerSecurityContext"
-                },
-                "servicePort": {
-                    "type": "integer"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
-                },
-                "serviceAccount": {
-                    "$ref": "#/definitions/ServiceAccount"
-                },
-                "service": {
-                    "$ref": "#/definitions/RedisService"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/ApplicationSetMetrics"
-                }
-            },
-            "required": [
-                "affinity",
-                "automountServiceAccountToken",
-                "containerPorts",
-                "containerSecurityContext",
-                "deploymentAnnotations",
-                "dnsConfig",
-                "dnsPolicy",
-                "enabled",
-                "env",
-                "envFrom",
-                "exporter",
-                "extraArgs",
-                "extraContainers",
-                "image",
-                "imagePullSecrets",
-                "initContainers",
-                "livenessProbe",
-                "metrics",
-                "name",
-                "nodeSelector",
-                "pdb",
-                "podAnnotations",
-                "podLabels",
-                "priorityClassName",
-                "readinessProbe",
-                "resources",
-                "securityContext",
-                "service",
-                "serviceAccount",
-                "servicePort",
-                "terminationGracePeriodSeconds",
-                "tolerations",
-                "topologySpreadConstraints",
-                "volumeMounts",
-                "volumes"
-            ],
-            "title": "argo-cdRedis"
-        },
-        "RedisContainerPorts": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "redis": {
-                    "type": "integer"
-                },
-                "metrics": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "metrics",
-                "redis"
-            ],
-            "title": "RedisContainerPorts"
-        },
-        "RedisContainerSecurityContext": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "readOnlyRootFilesystem": {
-                    "type": "boolean"
-                },
-                "allowPrivilegeEscalation": {
-                    "type": "boolean"
-                },
-                "capabilities": {
-                    "$ref": "#/definitions/Capabilities"
-                }
-            },
-            "required": [
-                "allowPrivilegeEscalation",
-                "capabilities",
-                "readOnlyRootFilesystem"
-            ],
-            "title": "RedisContainerSecurityContext"
-        },
-        "RedisExporter": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "env": {
-                    "type": "array",
-                    "items": {}
-                },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "livenessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "containerSecurityContext",
-                "enabled",
-                "env",
-                "image",
-                "livenessProbe",
-                "readinessProbe",
-                "resources"
-            ],
-            "title": "RedisExporter"
-        },
-        "SecurityContext": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "runAsNonRoot": {
-                    "type": "boolean"
-                },
-                "runAsUser": {
-                    "type": "integer"
-                },
-                "seccompProfile": {
-                    "$ref": "#/definitions/DeploymentStrategy"
-                }
-            },
-            "required": [
-                "runAsNonRoot",
-                "runAsUser",
-                "seccompProfile"
-            ],
-            "title": "SecurityContext"
-        },
-        "RedisService": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                }
-            },
-            "required": [
-                "annotations",
-                "labels"
-            ],
-            "title": "RedisService"
-        },
-        "RedisHa": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "image": {
-                    "$ref": "#/definitions/RedisHaImage"
-                },
-                "exporter": {
-                    "$ref": "#/definitions/RedisHaExporter"
-                },
-                "persistentVolume": {
-                    "$ref": "#/definitions/Openshift"
-                },
-                "redis": {
-                    "$ref": "#/definitions/RedisHaRedis"
-                },
-                "haproxy": {
-                    "$ref": "#/definitions/Haproxy"
-                },
-                "hardAntiAffinity": {
-                    "type": "boolean"
-                },
-                "additionalAffinities": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "affinity": {
-                    "type": "string"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "topologySpreadConstraints": {
-                    "$ref": "#/definitions/TopologySpreadConstraints"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/RedisHaContainerSecurityContext"
-                }
-            },
-            "required": [
-                "additionalAffinities",
-                "affinity",
-                "containerSecurityContext",
-                "enabled",
-                "exporter",
-                "haproxy",
-                "hardAntiAffinity",
-                "image",
-                "persistentVolume",
-                "redis",
-                "tolerations",
-                "topologySpreadConstraints"
-            ],
-            "title": "RedisHa"
-        },
-        "RedisHaContainerSecurityContext": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "readOnlyRootFilesystem": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "readOnlyRootFilesystem"
-            ],
-            "title": "RedisHaContainerSecurityContext"
-        },
-        "RedisHaExporter": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "image": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "enabled",
-                "image",
-                "tag"
-            ],
-            "title": "RedisHaExporter"
-        },
-        "Haproxy": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "labels": {
-                    "$ref": "#/definitions/Labels"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/Openshift"
-                },
-                "hardAntiAffinity": {
-                    "type": "boolean"
-                },
-                "additionalAffinities": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "affinity": {
-                    "type": "string"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/RedisHaContainerSecurityContext"
-                }
-            },
-            "required": [
-                "additionalAffinities",
-                "affinity",
-                "containerSecurityContext",
-                "enabled",
-                "hardAntiAffinity",
-                "labels",
-                "metrics",
-                "tolerations"
-            ],
-            "title": "Haproxy"
-        },
-        "Labels": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "app.kubernetes.io/name": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "app.kubernetes.io/name"
-            ],
-            "title": "Labels"
-        },
-        "RedisHaImage": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "repository": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "repository",
-                "tag"
-            ],
-            "title": "RedisHaImage"
-        },
-        "RedisHaRedis": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "masterGroupName": {
-                    "type": "string"
-                },
-                "config": {
-                    "$ref": "#/definitions/Config"
-                }
-            },
-            "required": [
-                "config",
-                "masterGroupName"
-            ],
-            "title": "RedisHaRedis"
-        },
-        "Config": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "save": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "save"
-            ],
-            "title": "Config"
-        },
-        "TopologySpreadConstraints": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "maxSkew": {
-                    "type": "string"
-                },
-                "topologyKey": {
-                    "type": "string"
-                },
-                "whenUnsatisfiable": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "enabled",
-                "maxSkew",
-                "topologyKey",
-                "whenUnsatisfiable"
-            ],
-            "title": "TopologySpreadConstraints"
-        },
-        "RepoServer": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "name": {
-                    "type": "string"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 },
                 "replicas": {
+                    "type": "integer"
+                },
+                "revisionHistoryLimit": {
                     "type": "integer"
                 },
                 "autoscaling": {
                     "$ref": "#/definitions/Autoscaling"
                 },
                 "pdb": {
-                    "$ref": "#/definitions/Pdb"
+                    "$ref": "#/definitions/NodeEvents"
                 },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
+                "nodeSelector": {
+                    "$ref": "#/definitions/NodeSelector"
                 },
-                "imagePullSecrets": {
+                "tolerations": {
+                    "type": "array",
+                    "items": {}
+                },
+                "affinity": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "topologySpreadConstraints": {
+                    "type": "array",
+                    "items": {}
+                },
+                "priorityClassName": {
+                    "type": "string"
+                },
+                "secure": {
+                    "type": "boolean"
+                },
+                "extraEnv": {
+                    "type": "array",
+                    "items": {}
+                },
+                "authMode": {
+                    "type": "string"
+                },
+                "authModes": {
                     "type": "array",
                     "items": {}
                 },
@@ -2819,24 +1025,11 @@
                     "type": "array",
                     "items": {}
                 },
-                "env": {
-                    "type": "array",
-                    "items": {}
+                "logging": {
+                    "$ref": "#/definitions/Logging"
                 },
-                "envFrom": {
-                    "type": "array",
-                    "items": {}
-                },
-                "lifecycle": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
+                "tmpVolume": {
+                    "$ref": "#/definitions/TmpVolume"
                 },
                 "volumeMounts": {
                     "type": "array",
@@ -2846,139 +1039,120 @@
                     "type": "array",
                     "items": {}
                 },
-                "existingVolumes": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                "ingress": {
+                    "$ref": "#/definitions/Ingress"
                 },
-                "emptyDir": {
-                    "$ref": "#/definitions/EmptyDir"
+                "GKEbackendConfig": {
+                    "$ref": "#/definitions/GkEendConfig"
                 },
-                "useEphemeralHelmWorkingDir": {
-                    "type": "boolean"
+                "GKEmanagedCertificate": {
+                    "$ref": "#/definitions/GKEmanagedCertificate"
                 },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                "GKEfrontendConfig": {
+                    "$ref": "#/definitions/GkEendConfig"
                 },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                "clusterWorkflowTemplates": {
+                    "$ref": "#/definitions/ServerClusterWorkflowTemplates"
                 },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
+                "sso": {
+                    "$ref": "#/definitions/Sso"
                 },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/RepoServerContainerPorts"
-                },
-                "hostNetwork": {
-                    "type": "boolean"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "livenessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
+                "extraContainers": {
                     "type": "array",
                     "items": {}
                 },
-                "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "deploymentStrategy": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "certificateSecret": {
-                    "$ref": "#/definitions/CertificateSecret"
-                },
-                "service": {
-                    "$ref": "#/definitions/RepoServerService"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/ApplicationSetMetrics"
-                },
-                "clusterRoleRules": {
-                    "$ref": "#/definitions/ControllerClusterRoleRules"
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
-                },
-                "serviceAccount": {
-                    "$ref": "#/definitions/ServiceAccount"
-                },
-                "rbac": {
+                "extraInitContainers": {
                     "type": "array",
                     "items": {}
                 }
             },
             "required": [
+                "GKEbackendConfig",
+                "GKEfrontendConfig",
+                "GKEmanagedCertificate",
                 "affinity",
-                "automountServiceAccountToken",
+                "authMode",
+                "authModes",
                 "autoscaling",
-                "certificateSecret",
-                "clusterRoleRules",
-                "containerPorts",
-                "containerSecurityContext",
+                "baseHref",
+                "clusterWorkflowTemplates",
                 "deploymentAnnotations",
-                "deploymentStrategy",
-                "dnsConfig",
-                "dnsPolicy",
-                "emptyDir",
-                "env",
-                "envFrom",
-                "existingVolumes",
+                "enabled",
                 "extraArgs",
                 "extraContainers",
-                "hostNetwork",
+                "extraEnv",
+                "extraInitContainers",
+                "hostAliases",
                 "image",
-                "imagePullSecrets",
-                "initContainers",
-                "lifecycle",
-                "livenessProbe",
-                "metrics",
+                "ingress",
+                "loadBalancerIP",
+                "loadBalancerSourceRanges",
+                "logging",
                 "name",
                 "nodeSelector",
                 "pdb",
                 "podAnnotations",
                 "podLabels",
+                "podSecurityContext",
                 "priorityClassName",
                 "rbac",
-                "readinessProbe",
                 "replicas",
                 "resources",
-                "service",
+                "revisionHistoryLimit",
+                "secure",
+                "securityContext",
                 "serviceAccount",
-                "terminationGracePeriodSeconds",
+                "serviceAnnotations",
+                "serviceLabels",
+                "serviceNodePort",
+                "servicePort",
+                "servicePortName",
+                "serviceType",
+                "sso",
+                "tmpVolume",
                 "tolerations",
                 "topologySpreadConstraints",
-                "useEphemeralHelmWorkingDir",
                 "volumeMounts",
                 "volumes"
             ],
-            "title": "RepoServer"
+            "title": "Server"
+        },
+        "GkEendConfig": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "spec": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                }
+            },
+            "required": [
+                "enabled",
+                "spec"
+            ],
+            "title": "GkEendConfig"
+        },
+        "GKEmanagedCertificate": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "domains": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "domains",
+                "enabled"
+            ],
+            "title": "GKEmanagedCertificate"
         },
         "Autoscaling": {
             "type": "object",
@@ -3000,381 +1174,253 @@
                     "type": "integer"
                 },
                 "behavior": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "metrics": {
-                    "type": "array",
-                    "items": {}
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
                 }
             },
             "required": [
                 "behavior",
                 "enabled",
                 "maxReplicas",
-                "metrics",
                 "minReplicas",
                 "targetCPUUtilizationPercentage",
                 "targetMemoryUtilizationPercentage"
             ],
             "title": "Autoscaling"
         },
-        "RepoServerContainerPorts": {
+        "ServerClusterWorkflowTemplates": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "server": {
-                    "type": "integer"
+                "enabled": {
+                    "type": "boolean"
                 },
-                "metrics": {
-                    "type": "integer"
+                "enableEditing": {
+                    "type": "boolean"
                 }
             },
             "required": [
-                "metrics",
-                "server"
+                "enableEditing",
+                "enabled"
             ],
-            "title": "RepoServerContainerPorts"
+            "title": "ServerClusterWorkflowTemplates"
         },
-        "Server": {
+        "Ingress": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "annotations": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "labels": {
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                },
+                "ingressClassName": {
+                    "type": "string"
+                },
+                "hosts": {
+                    "type": "array",
+                    "items": {}
+                },
+                "paths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "pathType": {
+                    "type": "string"
+                },
+                "extraPaths": {
+                    "type": "array",
+                    "items": {}
+                },
+                "tls": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "annotations",
+                "enabled",
+                "extraPaths",
+                "hosts",
+                "ingressClassName",
+                "labels",
+                "pathType",
+                "paths",
+                "tls"
+            ],
+            "title": "Ingress"
+        },
+        "ServerRbac": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "create"
+            ],
+            "title": "ServerRbac"
+        },
+        "Sso": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "issuer": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "clientId": {
+                    "$ref": "#/definitions/Client"
+                },
+                "clientSecret": {
+                    "$ref": "#/definitions/Client"
+                },
+                "redirectUrl": {
+                    "type": "string"
+                },
+                "rbac": {
+                    "$ref": "#/definitions/SsoRbac"
+                },
+                "scopes": {
+                    "type": "array",
+                    "items": {}
+                },
+                "sessionExpiry": {
+                    "type": "string"
+                },
+                "issuerAlias": {
+                    "type": "string"
+                },
+                "customGroupClaimName": {
+                    "type": "string"
+                },
+                "userInfoPath": {
+                    "type": "string"
+                },
+                "insecureSkipVerify": {
+                    "type": "boolean"
+                },
+                "filterGroupsRegex": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "clientId",
+                "clientSecret",
+                "customGroupClaimName",
+                "enabled",
+                "filterGroupsRegex",
+                "insecureSkipVerify",
+                "issuer",
+                "issuerAlias",
+                "rbac",
+                "redirectUrl",
+                "scopes",
+                "sessionExpiry",
+                "userInfoPath"
+            ],
+            "title": "Sso"
+        },
+        "Client": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "name": {
                     "type": "string"
                 },
-                "replicas": {
-                    "type": "integer"
+                "key": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "key",
+                "name"
+            ],
+            "title": "Client"
+        },
+        "SsoRbac": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
                 },
-                "autoscaling": {
-                    "$ref": "#/definitions/Autoscaling"
-                },
-                "pdb": {
-                    "$ref": "#/definitions/Pdb"
-                },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "imagePullSecrets": {
+                "secretWhitelist": {
                     "type": "array",
                     "items": {}
-                },
-                "extraArgs": {
-                    "type": "array",
-                    "items": {}
-                },
-                "env": {
-                    "type": "array",
-                    "items": {}
-                },
-                "envFrom": {
-                    "type": "array",
-                    "items": {}
-                },
-                "lifecycle": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "extensions": {
-                    "$ref": "#/definitions/Extensions"
-                },
-                "extraContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "initContainers": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumeMounts": {
-                    "type": "array",
-                    "items": {}
-                },
-                "volumes": {
-                    "type": "array",
-                    "items": {}
-                },
+                }
+            },
+            "required": [
+                "enabled",
+                "secretWhitelist"
+            ],
+            "title": "SsoRbac"
+        },
+        "TmpVolume": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
                 "emptyDir": {
-                    "$ref": "#/definitions/EmptyDir"
-                },
-                "deploymentAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podAnnotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "podLabels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "containerPorts": {
-                    "$ref": "#/definitions/RepoServerContainerPorts"
-                },
-                "hostNetwork": {
-                    "type": "boolean"
-                },
-                "dnsConfig": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "dnsPolicy": {
-                    "type": "string"
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "readinessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "livenessProbe": {
-                    "$ref": "#/definitions/ApplicationSetLivenessProbe"
-                },
-                "terminationGracePeriodSeconds": {
-                    "type": "integer"
-                },
-                "priorityClassName": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "tolerations": {
-                    "type": "array",
-                    "items": {}
-                },
-                "affinity": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "topologySpreadConstraints": {
-                    "type": "array",
-                    "items": {}
-                },
-                "deploymentStrategy": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "certificate": {
-                    "$ref": "#/definitions/Certificate"
-                },
-                "certificateSecret": {
-                    "$ref": "#/definitions/CertificateSecret"
-                },
-                "service": {
-                    "$ref": "#/definitions/ServerService"
-                },
-                "metrics": {
-                    "$ref": "#/definitions/ApplicationSetMetrics"
-                },
-                "automountServiceAccountToken": {
-                    "type": "boolean"
+                    "$ref": "#/definitions/ArtifactRepositoryRef"
+                }
+            },
+            "required": [
+                "emptyDir"
+            ],
+            "title": "TmpVolume"
+        },
+        "Workflow": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "namespace": {
+                    "type": "null"
                 },
                 "serviceAccount": {
                     "$ref": "#/definitions/ServiceAccount"
                 },
-                "ingress": {
-                    "$ref": "#/definitions/Ingress"
-                },
-                "ingressGrpc": {
-                    "$ref": "#/definitions/Ingress"
-                },
-                "route": {
-                    "$ref": "#/definitions/Route"
-                },
-                "clusterRoleRules": {
-                    "$ref": "#/definitions/ControllerClusterRoleRules"
+                "rbac": {
+                    "$ref": "#/definitions/WorkflowRbac"
                 }
             },
             "required": [
-                "affinity",
-                "automountServiceAccountToken",
-                "autoscaling",
-                "certificate",
-                "certificateSecret",
-                "clusterRoleRules",
-                "containerPorts",
-                "containerSecurityContext",
-                "deploymentAnnotations",
-                "deploymentStrategy",
-                "dnsConfig",
-                "dnsPolicy",
-                "emptyDir",
-                "env",
-                "envFrom",
-                "extensions",
-                "extraArgs",
-                "extraContainers",
-                "hostNetwork",
-                "image",
-                "imagePullSecrets",
-                "ingress",
-                "ingressGrpc",
-                "initContainers",
-                "lifecycle",
-                "livenessProbe",
-                "metrics",
-                "name",
-                "nodeSelector",
-                "pdb",
-                "podAnnotations",
-                "podLabels",
-                "priorityClassName",
-                "readinessProbe",
-                "replicas",
-                "resources",
-                "route",
-                "service",
-                "serviceAccount",
-                "terminationGracePeriodSeconds",
-                "tolerations",
-                "topologySpreadConstraints",
-                "volumeMounts",
-                "volumes"
+                "namespace",
+                "rbac",
+                "serviceAccount"
             ],
-            "title": "Server"
+            "title": "Workflow"
         },
-        "Extensions": {
+        "WorkflowRbac": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "enabled": {
+                "create": {
                     "type": "boolean"
                 },
-                "image": {
-                    "$ref": "#/definitions/InitImageClass"
-                },
-                "extensionList": {
+                "serviceAccounts": {
                     "type": "array",
                     "items": {}
-                },
-                "containerSecurityContext": {
-                    "$ref": "#/definitions/ApplicationSetContainerSecurityContext"
-                },
-                "resources": {
-                    "$ref": "#/definitions/APIVersionOverrides"
                 }
             },
             "required": [
-                "containerSecurityContext",
-                "enabled",
-                "extensionList",
-                "image",
-                "resources"
+                "create",
+                "serviceAccounts"
             ],
-            "title": "Extensions"
-        },
-        "Route": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "hostname": {
-                    "type": "string"
-                },
-                "termination_type": {
-                    "type": "string"
-                },
-                "termination_policy": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "enabled",
-                "hostname",
-                "termination_policy",
-                "termination_type"
-            ],
-            "title": "Route"
-        },
-        "ServerService": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "labels": {
-                    "$ref": "#/definitions/APIVersionOverrides"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "nodePortHttp": {
-                    "type": "integer"
-                },
-                "nodePortHttps": {
-                    "type": "integer"
-                },
-                "servicePortHttp": {
-                    "type": "integer"
-                },
-                "servicePortHttps": {
-                    "type": "integer"
-                },
-                "servicePortHttpName": {
-                    "type": "string"
-                },
-                "servicePortHttpsName": {
-                    "type": "string"
-                },
-                "servicePortHttpsAppProtocol": {
-                    "type": "string"
-                },
-                "loadBalancerIP": {
-                    "type": "string"
-                },
-                "loadBalancerSourceRanges": {
-                    "type": "array",
-                    "items": {}
-                },
-                "externalIPs": {
-                    "type": "array",
-                    "items": {}
-                },
-                "externalTrafficPolicy": {
-                    "type": "string"
-                },
-                "sessionAffinity": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "annotations",
-                "externalIPs",
-                "externalTrafficPolicy",
-                "labels",
-                "loadBalancerIP",
-                "loadBalancerSourceRanges",
-                "nodePortHttp",
-                "nodePortHttps",
-                "servicePortHttp",
-                "servicePortHttpName",
-                "servicePortHttps",
-                "servicePortHttpsAppProtocol",
-                "servicePortHttpsName",
-                "sessionAffinity",
-                "type"
-            ],
-            "title": "ServerService"
-        },
-        "Type": {
-            "type": "string",
-            "enum": [
-                "RuntimeDefault",
-                "Recreate"
-            ],
-            "title": "Type"
-        },
-        "ImagePullPolicy": {
-            "type": "string",
-            "enum": [
-                "",
-                "IfNotPresent"
-            ],
-            "title": "ImagePullPolicy"
+            "title": "WorkflowRbac"
         }
     }
 }
